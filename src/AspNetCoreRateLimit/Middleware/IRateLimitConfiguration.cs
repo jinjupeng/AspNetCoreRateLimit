@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace AspNetCoreRateLimit
 {
+    /// <summary>
+    /// 限流配置接口
+    /// </summary>
     public interface IRateLimitConfiguration
     {
         IList<IClientResolveContributor> ClientResolvers { get; }

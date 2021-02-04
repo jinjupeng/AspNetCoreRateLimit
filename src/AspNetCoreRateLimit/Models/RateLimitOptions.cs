@@ -5,10 +5,19 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreRateLimit
 {
+    /// <summary>
+    /// 限流参数实体（映射限流规则参数）
+    /// </summary>
     public class RateLimitOptions
     {
+        /// <summary>
+        /// 通用限流规则
+        /// </summary>
         public List<RateLimitRule> GeneralRules { get; set; }
 
+        /// <summary>
+        /// 终结点白名单
+        /// </summary>
         public List<string> EndpointWhitelist { get; set; }
 
         /// <summary>
@@ -16,6 +25,9 @@ namespace AspNetCoreRateLimit
         /// </summary>
         public string ClientIdHeader { get; set; } = "X-ClientId";
 
+        /// <summary>
+        /// 客户端白名单
+        /// </summary>
         public List<string> ClientWhitelist { get; set; }
 
         /// <summary>
@@ -23,6 +35,9 @@ namespace AspNetCoreRateLimit
         /// </summary>
         public string RealIpHeader { get; set; } = "X-Real-IP";
 
+        /// <summary>
+        /// ip白名单
+        /// </summary>
         public List<string> IpWhitelist { get; set; }
 
         /// <summary>
@@ -34,6 +49,7 @@ namespace AspNetCoreRateLimit
         /// Gets or sets a value that will be used as a formatter for the QuotaExceeded response message.
         /// If none specified the default will be: 
         /// API calls quota exceeded! maximum admitted {0} per {1}
+        /// 限额超出警告信息
         /// </summary>
         public string QuotaExceededMessage { get; set; }
 
@@ -43,12 +59,12 @@ namespace AspNetCoreRateLimit
         public QuotaExceededResponse QuotaExceededResponse { get; set; }
 
         /// <summary>
-        /// Gets or sets the counter prefix, used to compose the rate limit counter cache key
+        /// Gets or sets the counter prefix, used to compose(组成构成) the rate limit counter cache key
         /// </summary>
         public string RateLimitCounterPrefix { get; set; } = "crlc";
 
         /// <summary>
-        /// Gets or sets a value indicating whether all requests, including the rejected ones, should be stacked in this order: day, hour, min, sec
+        /// Gets or sets a value indicating（表明、暗示、象征） whether all requests, including the rejected ones, should be stacked in this order: day, hour, min, sec
         /// </summary>
         public bool StackBlockedRequests { get; set; }
 

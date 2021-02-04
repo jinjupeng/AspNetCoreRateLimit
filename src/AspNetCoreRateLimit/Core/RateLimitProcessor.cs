@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreRateLimit
 {
+    /// <summary>
+    /// 抽象类，限流处理器
+    /// </summary>
     public abstract class RateLimitProcessor
     {
         private readonly RateLimitOptions _options;
@@ -31,6 +34,11 @@ namespace AspNetCoreRateLimit
         /// The key-lock used for limiting requests.
         private static readonly AsyncKeyLock AsyncLock = new AsyncKeyLock();
 
+        /// <summary>
+        /// 请求是否在白名单内
+        /// </summary>
+        /// <param name="requestIdentity"></param>
+        /// <returns></returns>
         public virtual bool IsWhitelisted(ClientRequestIdentity requestIdentity)
         {
             if (_options.ClientWhitelist != null && _options.ClientWhitelist.Contains(requestIdentity.ClientId))
@@ -55,6 +63,13 @@ namespace AspNetCoreRateLimit
             return false;
         }
 
+        /// <summary>
+        /// 处理请求
+        /// </summary>
+        /// <param name="requestIdentity">请求信息</param>
+        /// <param name="rule">限流规则</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public virtual async Task<RateLimitCounter> ProcessRequestAsync(ClientRequestIdentity requestIdentity, RateLimitRule rule, CancellationToken cancellationToken = default)
         {
             var counter = new RateLimitCounter

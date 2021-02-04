@@ -4,6 +4,9 @@ using Microsoft.Extensions.Options;
 
 namespace AspNetCoreRateLimit
 {
+    /// <summary>
+    /// ip限流中间件
+    /// </summary>
     public class IpRateLimitMiddleware : RateLimitMiddleware<IpRateLimitProcessor>
     {
         private readonly ILogger<IpRateLimitMiddleware> _logger;

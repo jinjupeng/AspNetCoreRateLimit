@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreRateLimit
 {
+    /// <summary>
+    /// 限流处理接口
+    /// </summary>
     public interface IRateLimitProcessor
     {
         Task<IEnumerable<RateLimitRule>> GetMatchingRulesAsync(ClientRequestIdentity identity, CancellationToken cancellationToken = default);

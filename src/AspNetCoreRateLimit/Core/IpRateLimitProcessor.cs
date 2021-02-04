@@ -21,6 +21,12 @@ namespace AspNetCoreRateLimit
             _policyStore = policyStore;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<RateLimitRule>> GetMatchingRulesAsync(ClientRequestIdentity identity, CancellationToken cancellationToken = default)
         {
             var policies = await _policyStore.GetAsync($"{_options.IpPolicyPrefix}", cancellationToken);

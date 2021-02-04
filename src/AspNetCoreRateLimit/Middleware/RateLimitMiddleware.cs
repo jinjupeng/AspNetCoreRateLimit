@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace AspNetCoreRateLimit
 {
+    /// <summary>
+    /// 抽象类
+    /// </summary>
+    /// <typeparam name="TProcessor"></typeparam>
     public abstract class RateLimitMiddleware<TProcessor>
         where TProcessor : IRateLimitProcessor
     {
@@ -14,6 +18,13 @@ namespace AspNetCoreRateLimit
         private readonly RateLimitOptions _options;
         private readonly IRateLimitConfiguration _config;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="next">请求委托</param>
+        /// <param name="options">限流参数</param>
+        /// <param name="processor">限流处理接口</param>
+        /// <param name="config">限流配置接口</param>
         protected RateLimitMiddleware(
             RequestDelegate next,
             RateLimitOptions options,
@@ -30,6 +41,7 @@ namespace AspNetCoreRateLimit
         public async Task Invoke(HttpContext context)
         {
             // check if rate limiting is enabled
+            // 检查限流规则是否启用
             if (_options == null)
             {
                 await _next.Invoke(context);
